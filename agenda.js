@@ -1,9 +1,8 @@
 const funcStorage = {
-  //buscar
   get(){
       return JSON.parse(localStorage.getItem("agenda:contatos")) || []
   },
-  //salvar
+  
   set(contatos){
       localStorage.setItem("agenda:contatos", JSON.stringify(contatos))
   }
@@ -11,7 +10,6 @@ const funcStorage = {
 
 const contatos = [];
 
-// classe
 class Contato {
   constructor (id, nome, email){
     id=parseInt(id)
@@ -37,10 +35,8 @@ const funcContato = {
   editarContato(id){
     funcHTML.configurarBotoes("editar")
 
-    // busca todo o elemento na lista pelo id
     const contatoSelecionado = this.obterContato(id)
 
-    // pega a posição do alemento, buscando o elemento da lista
     const index = this.contatos.indexOf(contatoSelecionado)
 
     funcHTML.preencherForm(contatoSelecionado)
@@ -63,28 +59,21 @@ const funcContato = {
     funcHTML.limparForm()
     funcHTML.configurarBotoes("adicionar")
 
-    //reestrutura a pagina
     iniciar()
 
 
   },
 
   excluirContato(id){
-    // id = id do elemento clicado
 
-    // busca todo o elemento na lista pelo id
     const contatoSelecionado = this.obterContato(id)
     
-    // pega a posição do alemento, buscando o elemento da lista
     index = this.contatos.indexOf(contatoSelecionado)
 
-    // na posição index, elimina apenas 1 elemento
     this.contatos.splice(index, 1)
 
-    // atualiza a lista no storage
     funcStorage.set(this.contatos)
 
-    // reestrura a página
     iniciar()
   },
 
@@ -101,7 +90,6 @@ const funcContato = {
       novoId=idUltimoContato+1
 
       return novoId
-      // return this.contatos[lengthContatos-1].id+1
     }
   },
 
@@ -150,13 +138,9 @@ const funcHTML = {
   adicionarElementos(){
     const contatos = funcStorage.get()
 
-    // se tiver algum contato
-
-    // apagar todas as informações
     this.limparTabela()
 
     if (contatos.length > 0){
-      //preencher a tabela
       contatos.forEach(contato => {
         const linha = document.createElement("tr")
         linha.innerHTML=`
